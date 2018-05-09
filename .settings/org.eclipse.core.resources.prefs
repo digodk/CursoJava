@@ -1,0 +1,115 @@
+--><span=class\="path-divider">/</span><\!--
+--><strong=itemprop\="name"><a data-pjax\="\#js-repo-pjax-container" href\="/digodk/Curso-Java">Curso-Java</a></strong>
+0=
+169=Bytes
+6=lines (5 sloc)
+<\!--='"` --><\!-- </textarea></xmp> --></option></form><form class\="js-jump-to-line-form" action\="" accept-charset\="UTF-8" method\="get"><input name\="utf8" type\="hidden" value\="&\#x2713;" />
+<\!DOCTYPE=html>
+</a>=
+</a></li>=
+</body>=
+</button>=
+</clipboard-copy>=
+</details>=
+</div>=
+</form>=</div>
+</form></div>=
+</form></li>=
+</h1>=
+</head>=
+</header>=
+</html>=
+</include-fragment>=
+</label>=
+</li>=
+</nav>=
+</span>=
+</summary>=
+</table>=
+</tr>=
+</ul>=
+<a=aria-label\="Homepage" title\="GitHub" class\="footer-octicon" href\="https\://github.com">
+<body=class\="logged-in env-production page-blob">
+<button=type\="button" class\="facebox-close js-facebox-close" aria-label\="Close modal">
+<clipboard-copy=for\="blob-path" class\="btn btn-sm BtnGroup-item">
+<details=class\="dropdown-details details-reset js-dropdown-details d-flex pl-2 flex-items-center">
+<div=id\="hovercard-aria-description" class\="sr-only">
+<div>=
+<h1=class\="public ">
+<head>=
+<header=class\="Header  f5" role\="banner">
+<html=lang\="en">
+<i>Branch=</i>
+<img=alt\="" class\="loader-loading float-left" src\="https\://assets-cdn.github.com/images/spinners/octocat-spinner-32-EAF2F5.gif" width\="16" height\="16" />
+<include-fragment=src\="/digodk/Curso-Java/contributors/master/CursoJava/.settings/org.eclipse.core.resources.prefs" class\="commit-tease">
+<input=class\="form-control linejump-input js-jump-to-line-field" type\="text" placeholder\="Jump to line&hellip;" aria-label\="Jump to line" autofocus>
+<label=class\="form-control header-search-wrapper  js-chromeless-input-container">
+<li=class\="mr-3"><a href\="https\://blog.github.com" data-ga-click\="Footer, go to blog, text\:blog">Blog</a></li>
+<li>=
+<li><\!--='"` --><\!-- </textarea></xmp> --></option></form><form class\="logout-form" action\="/logout" accept-charset\="UTF-8" method\="post"><input name\="utf8" type\="hidden" value\="&\#x2713;" /><input type\="hidden" name\="authenticity_token" value\="m9EBdpdqljxvmo+RDA+qTnIzEL+ZR7dMkNlQETAusvAqeBUXD4geDdTrIWSZNyDDZ/nErUm0n4dIwyeGR5R1ig\=\=" />
+<li><a=data-ga-click\="Footer, go to about, text\:about" href\="https\://github.com/about">About</a></li>
+<li><clipboard-copy=class\="dropdown-item" id\="js-copy-permalink" style\="cursor\:pointer;" data-original-text\="Copy permalink">Copy permalink</clipboard-copy></li>
+<link=rel\="manifest" href\="/manifest.json" crossOrigin\="use-credentials">
+<meta=itemprop\="position" content\="3">
+<nav=class\="reponav js-repo-nav js-sidenav-container-pjax container"
+<script=crossorigin\="anonymous" async\="async" integrity\="sha512-xly7geYKGVmr7HLBuRTXRNjK0/+WQ/+1RBQDAixTSud97XcgtOukqFU4+do58lRFmygNzwdoNMngONnO0VOl5A\=\=" type\="application/javascript" src\="https\://assets-cdn.github.com/assets/github-185a3d49fd3146b3003cfdf26f787db9.js"></script>
+<span=class\="signed-out-tab-flash">You signed out in another tab or window. <a href\="">Reload</a> to refresh your session.</span>
+<summary=class\="HeaderNavlink name mt-1"
+<svg=class\="octicon octicon-x" viewBox\="0 0 12 16" version\="1.1" width\="12" height\="16" aria-hidden\="true"><path fill-rule\="evenodd" d\="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+<table=class\="highlight tab-size js-file-line-container" data-tab-size\="8">
+<td=id\="LC5" class\="blob-code blob-code-inner js-file-line"><span class\="pl-k">separateDerivedEncodings</span>\=true</td>
+<title>Curso-Java/org.eclipse.core.resources.prefs=at master \u00C2\u00B7 digodk/Curso-Java</title>
+<tr>=
+<ul=class\="list-style-none d-flex flex-wrap ">
+<ul>=
+>=
+Apps=
+Copy=path
+Explore=
+Fetching=contributors&hellip;
+Find=file
+Fork=
+Help=
+Import=repository
+Insights=
+Issues=
+New=issue
+Press=h to open a hovercard with more details.
+Projects=
+Pull=requests
+Settings=
+Sign=out
+Signed=in as <strong class\="css-truncate-target">digodk</strong>
+Star=
+Stop=ignoring
+Unstar=
+Unwatch=
+Watch=
+Wiki=
+You=can\u00E2\u0080\u0099t perform that action at this time.
+Your=stars
+aria-expanded="false"
+aria-haspopup="true"
+aria-label="Delete this file" data-disable-with>
+autocapitalize="off"
+class="js-pjax-capture-input btn btn-sm BtnGroup-item"
+data-ga-click="Repository, open with desktop, type\:windows">
+data-hotkey="t">
+data-name="master"
+data-pjax=
+data-scoped-placeholder="Search"
+data-skip-pjax="true"
+data-unscoped-placeholder="Search GitHub"
+eclipse.preferences.version=1
+encoding//src/recursos/AuxInput.java=UTF-8
+href="x-github-client\://openRepo/https\://github.com/digodk/Curso-Java?branch\=master&amp;filepath\=CursoJava%2F.settings%2Forg.eclipse.core.resources.prefs"
+itemscope=
+itemtype="http\://schema.org/BreadcrumbList"
+master=
+name="q"
+placeholder="Search"
+rel="nofollow">
+role="navigation"
+title="Fork your own copy of digodk/Curso-Java to your account"
+type="button" aria-label\="Switch branches or tags" aria-expanded\="false" aria-haspopup\="true">
+value=""
