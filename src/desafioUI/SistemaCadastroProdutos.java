@@ -1,42 +1,31 @@
 package desafioUI;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
-import javax.swing.text.NumberFormatter;
+import javax.swing.text.PlainDocument;
 
-public class SistemaCadastroProdutos {
-
-  public static void main(String[] args) {
-    ArrayList<Produto> listaProduto = new ArrayList<>();
-    Formulario formulario = new Formulario();
-    formulario.carregar(listaProduto);
-    formulario.iniciar();
-
-  }
-
-}
-
-class Produto {
-  String nome = "";
-  double preco = 0, total = 0;
-  int quantidade = 0;
-}
-
-class Formulario {
+public class SistemaCadastroProdutos extends JPanel implements ActionListener, FocusListener {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 4007220763252390441L;
   private int alturaFrame = 700;
   private int larguraFrame = 450;
   private int alturaCaixa = 20;
@@ -45,9 +34,15 @@ class Formulario {
   private int margemSuperior = 50;
   private int margemCaixas = 30;
   private int margemEsquerda = 30;
-  private Map<String, JComponent> controles = new HashMap<>();
+  private ArrayList<JComponent> controles = new ArrayList<>();
   private ArrayList<Produto> listaProduto = new ArrayList<>();
   private JFrame frame;
+
+  class Produto {
+    String nome = "";
+    double preco = 0, total = 0;
+    int quantidade = 0;
+  }
 
   public ArrayList<Produto> getListaProduto() {
     return listaProduto;
@@ -71,32 +66,53 @@ class Formulario {
     configurarComponente(new JLabel("Preço"), posicao);
     posicao++;
     configurarComponente(new JLabel("Quantidade"), posicao);
-    posicao++;
 
     // Caixas de texto
+    // Nome do Produto
     posicao = 0;
-    configurarComponente(new JTextField(), posicao);
+    JTextField campoNome = new JTextField("");
+    configurarComponente(campoNome, posicao);
+    campoNome.setName("Nome Produto");
+    controles.add(campoNome);
     posicao++;
-    // Testador para o filtro de texto na caixa de preços
-    Predicate<String> testadorPreco = new Predicate<String>() {
-      String caracPermitido = ".R$,";
 
-      @Override
-      public boolean test(String texto) {
-        for (char c : texto.toCharArray()) {
-          if (!Character.isDigit(c)) {
-            if (caracPermitido.indexOf(c) >= 0) {
-              if (texto.length() - texto.replace(c, Character.MIN_VALUE).length() > 1) {
-                return false;
-              }
-            } else {
-              return false;
-            }
-          }
-        }
-        return true;
-      }
-    };
+    // Campo Preço
+
+    // Abandonado, opção que usa JFormattedTextField
+    /*
+     * NumberFormat formatoMoeda =
+     * NumberFormat.getCurrencyInstance(Locale.getDefault());
+     * formatoMoeda.setMaximumFractionDigits(2);
+     * formatoMoeda.setMinimumFractionDigits(2); NumberFormatter formatador =
+     * new NumberFormatter(formatoMoeda); formatador.setMinimum(0.00);
+     * formatador.setMaximum(10000000.0); formatador.setAllowsInvalid(false);
+     * formatador.setOverwriteMode(true); JFormattedTextField campoPreco = new
+     * JFormattedTextField(formatador); campoPreco.setValue(0.00);
+     */
+
+    /*
+     * Regex para o filtro de texto na caixa de preços Retorna true quando o
+     * input é diferente de R$ #.###,## Permite que uma sequência de números
+     * entre dois pontos não tenha obrigatoriamente 3 números
+     */
+    String regex =
+            "^(R\\$\\s*)?(((\\d{0,3}\\.)?(\\d{3}\\.)*(\\d{0,2}\\.)?(\\d{3}\\.)*(\\d{3},\\d{2})\\s*$)|"
+                    + "(\\d{1,3},\\d{2}\\s*$)|" + "\\d*$)";
+    JTextField campoPreco = new JTextField("R$ ");
+    // Quando o campo perde foco, o texto é formatado para corrigir possíveis
+    // formatos inválidos
+    campoPreco.addFocusListener(this);
+    configurarComponente(campoPreco, posicao, regex);
+    campoNome.setName("Preço Produto");
+    controles.add(campoPreco);
+    posicao++;
+
+    // Campo Quantidade
+    regex = "^\\d*$";
+    JTextField campoQtd = new JTextField("0");
+    configurarComponente(campoQtd, posicao, regex);
+    campoNome.setName("Qtd Produto");
+    controles.add(campoQtd);
 
     // Botão cadastrar
 
@@ -107,6 +123,13 @@ class Formulario {
     label.setBounds(margemEsquerda, margemSuperior + posicao * (alturaCaixa + margemCaixas),
             larguraLabel, alturaCaixa);
     frame.add(label);
+  }
+
+  private <T extends JTextField> void configurarComponente(T txtBox, int posicao, String regex) {
+    Predicate<String> testador = s -> s.matches(regex);
+    PlainDocument doc = (PlainDocument) txtBox.getDocument();
+    doc.setDocumentFilter(new FiltroTexto(testador));
+    configurarComponente(txtBox, posicao);
   }
 
   private <T extends JTextField> void configurarComponente(T txtBox, int posicao) {
@@ -124,6 +147,8 @@ class Formulario {
   }
 
   // Subclasse de DocumentFilter que filtra inputs
+  // Recebe uma função de teste no construtor para os casos onde não há erro no
+  // input
   class FiltroTexto extends DocumentFilter {
     private Predicate<String> testador;
 
@@ -182,6 +207,40 @@ class Formulario {
       }
 
     }
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    // TODO Auto-generated method stub
+
+  }
+
+  public static void main(String[] args) {
+    ArrayList<Produto> listaProduto = new ArrayList<>();
+    SistemaCadastroProdutos formulario = new SistemaCadastroProdutos();
+    formulario.carregar(listaProduto);
+    formulario.iniciar();
+
+  }
+  
+
+  @Override
+  public void focusGained(FocusEvent e) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void focusLost(FocusEvent e) {
+    if (e.getComponent().getName() == "Preço Produto"); {
+      JTextField campo = (JTextField) e.getComponent();
+      NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(Locale.getDefault());
+      formatoMoeda.setMaximumFractionDigits(2);
+      formatoMoeda.setMinimumFractionDigits(2);
+      String stringNumero = campo.getText().replaceAll("[R\\$\\.]", "").replace(',', '.');
+      campo.setText(formatoMoeda.format(Double.parseDouble(stringNumero)));
+    }
+    
   }
 
 }
