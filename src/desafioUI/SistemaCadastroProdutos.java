@@ -78,7 +78,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
 
     // Campo Preço
 
-    // Abandonado, opção que usa JFormattedTextField
+    // Abandonado, opção que usa JFormattedTextField para validação de entrada
     /*
      * NumberFormat formatoMoeda =
      * NumberFormat.getCurrencyInstance(Locale.getDefault());
@@ -91,8 +91,8 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
      */
 
     /*
-     * Regex para o filtro de texto na caixa de preços Retorna true quando o
-     * input é diferente de R$ #.###,## Permite que uma sequência de números
+     * Regex para validação de texto na caixa de preços. Retorna true quando o
+     * input é diferente de R$ #.###,##. Permite que uma sequência de números
      * entre dois pontos não tenha obrigatoriamente 3 números
      */
     String regex =
@@ -101,6 +101,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
     JTextField campoPreco = new JTextField("R$ ");
     // Quando o campo perde foco, o texto é formatado para corrigir possíveis
     // formatos inválidos
+    // Para isso, é usada a função de focusListener dessa classe
     campoPreco.addFocusListener(this);
     configurarComponente(campoPreco, posicao, regex);
     campoNome.setName("Preço Produto");
@@ -125,8 +126,10 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
     frame.add(label);
   }
 
+  // T aqui funciona como um genérico para qualquer Objeto que é JTextField ou estende ele
   private <T extends JTextField> void configurarComponente(T txtBox, int posicao, String regex) {
     Predicate<String> testador = s -> s.matches(regex);
+    // Adiciona um documentListener que usa o regex como parâmetro para validar o texto a cada alteração.
     PlainDocument doc = (PlainDocument) txtBox.getDocument();
     doc.setDocumentFilter(new FiltroTexto(testador));
     configurarComponente(txtBox, posicao);
@@ -157,6 +160,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
       this.testador = testador;
     }
 
+    // Ativado quando o usuário insere um texto
     @Override
     public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
             throws BadLocationException {
@@ -166,6 +170,8 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
       sb.append(doc.getText(0, doc.getLength()));
       sb.insert(offset, string);
 
+      // A função testador determina se a alteração é valida. Caso sim, chama a função da classe
+      // DocumentFilter
       if (testador.test(sb.toString())) {
         super.insertString(fb, offset, string, attr);
       } else {
@@ -174,6 +180,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
       }
     }
 
+    // Ativado quando o usuário substitui ou cola um texto
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
             throws BadLocationException {
@@ -183,6 +190,8 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
       sb.append(doc.getText(0, doc.getLength()));
       sb.replace(offset, offset + length, text);
 
+      // A função testador determina se a alteração é valida. Caso sim, chama a função da classe
+      // DocumentFilter
       if (testador.test(sb.toString())) {
         super.replace(fb, offset, length, text, attrs);
       } else {
@@ -192,6 +201,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
 
     }
 
+    // Ativado quando o usuário remove um texto
     @Override
     public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
       Document doc = fb.getDocument();
@@ -199,6 +209,8 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
       sb.append(doc.getText(0, doc.getLength()));
       sb.delete(offset, offset + length);
 
+      // A função testador determina se a alteração é valida. Caso sim, chama a função da classe
+      // DocumentFilter
       if (testador.test(sb.toString())) {
         super.remove(fb, offset, length);
       } else {
@@ -209,6 +221,7 @@ public class SistemaCadastroProdutos extends JPanel implements ActionListener, F
     }
   }
 
+  // Faz nada aqui
   @Override
   public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
